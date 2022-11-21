@@ -4,6 +4,9 @@ import com.solvd.university.faculty.Faculty;
 import com.solvd.university.exception.StudentException;
 import com.solvd.university.university.University;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Bachelor extends Student {
     private String graduateTheme;
 
@@ -13,6 +16,7 @@ public class Bachelor extends Student {
         super(idNumber, name, cardNumber, studyYear, educationType, university, faculty);
         this.graduateTheme = graduateTheme;
     }
+
 
     public String getGraduateTheme() {
         return graduateTheme;

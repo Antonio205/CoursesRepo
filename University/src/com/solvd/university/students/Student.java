@@ -13,10 +13,10 @@ public abstract class Student {
     private int cardNumber;
     private int studyYear;
     private EducationType educationType;
-    private int cash;
+    protected int cash;
     final private University university;
-    final private Faculty faculty;
-    private ArrayList<Double> examMarks;
+    final protected Faculty faculty;
+    protected ArrayList<Double> examMarks;
 
     public Student(int idNumber, String name, int cardNumber, int studyYear, EducationType educationType,
                    University university, Faculty faculty) throws StudentException {

@@ -66,7 +66,6 @@ public class Main {
                     EducationType.PAID, bsu, faculty2, "btr", 8);
             graduate.insertCash(150);
                 graduate.passExams();
-                graduate.showMarks();
                 System.out.println("Средняя оценка по факультету: " + faculty.getAverage());
                 System.out.println("Средняя оценка по университету: " + bsu.getAverage());
             bachelor.showSpeciality();
