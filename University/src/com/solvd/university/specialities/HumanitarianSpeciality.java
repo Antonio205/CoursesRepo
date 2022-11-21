@@ -1,6 +1,6 @@
-package com.solvd.university.model.specialities;
+package com.solvd.university.specialities;
 
-import com.solvd.university.model.sublect.Subject;
+import com.solvd.university.sublect.Subject;
 
 import java.util.ArrayList;
 

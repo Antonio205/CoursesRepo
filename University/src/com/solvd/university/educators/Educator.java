@@ -1,4 +1,4 @@
-package com.solvd.university.model.educators;
+package com.solvd.university.educators;
 
 public abstract class Educator {
     private String name;

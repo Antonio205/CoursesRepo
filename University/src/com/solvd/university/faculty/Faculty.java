@@ -1,10 +1,10 @@
-package com.solvd.university.model.faculty;
+package com.solvd.university.faculty;
 
-import com.solvd.university.model.educators.Educator;
-import com.solvd.university.model.exam.Exam;
+import com.solvd.university.educators.Educator;
+import com.solvd.university.exam.Exam;
 import com.solvd.university.exception.StudentException;
-import com.solvd.university.model.specialities.Speciality;
-import com.solvd.university.model.students.Student;
+import com.solvd.university.specialities.Speciality;
+import com.solvd.university.students.Student;
 
 import java.util.ArrayList;
 

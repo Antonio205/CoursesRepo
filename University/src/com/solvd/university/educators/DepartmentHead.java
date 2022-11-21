@@ -1,4 +1,4 @@
-package com.solvd.university.model.educators;
+package com.solvd.university.educators;
 
 public class DepartmentHead extends  Educator {
     private String departmentTitle;

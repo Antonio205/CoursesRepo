@@ -1,4 +1,4 @@
-package com.solvd.university.model.exam;
+package com.solvd.university.exam;
 
 public class Exam {
 

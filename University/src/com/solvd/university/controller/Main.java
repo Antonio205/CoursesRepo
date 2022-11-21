@@ -1,19 +1,19 @@
 package com.solvd.university.controller;
 
-import com.solvd.university.model.educators.Assistant;
-import com.solvd.university.model.educators.DepartmentHead;
-import com.solvd.university.model.educators.Educator;
-import com.solvd.university.model.educators.LaboratoryAssistant;
-import com.solvd.university.model.exam.Exam;
+import com.solvd.university.educators.Assistant;
+import com.solvd.university.educators.DepartmentHead;
+import com.solvd.university.educators.Educator;
+import com.solvd.university.educators.LaboratoryAssistant;
+import com.solvd.university.exam.Exam;
 import com.solvd.university.exception.StudentException;
-import com.solvd.university.model.faculty.Faculty;
-import com.solvd.university.model.specialities.HumanitarianSpeciality;
-import com.solvd.university.model.specialities.TechnicalSpeciality;
-import com.solvd.university.model.students.Bachelor;
-import com.solvd.university.model.students.EducationType;
-import com.solvd.university.model.students.Graduate;
-import com.solvd.university.model.sublect.Subject;
-import com.solvd.university.model.university.University;
+import com.solvd.university.faculty.Faculty;
+import com.solvd.university.specialities.HumanitarianSpeciality;
+import com.solvd.university.specialities.TechnicalSpeciality;
+import com.solvd.university.students.Bachelor;
+import com.solvd.university.students.EducationType;
+import com.solvd.university.students.Graduate;
+import com.solvd.university.sublect.Subject;
+import com.solvd.university.university.University;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.solvd.university.model.sublect;
+package com.solvd.university.sublect;
 
 public class Subject {
     private String title;

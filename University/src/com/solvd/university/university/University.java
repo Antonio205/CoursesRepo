@@ -1,7 +1,7 @@
-package com.solvd.university.model.university;
+package com.solvd.university.university;
 
 import com.solvd.university.exception.StudentException;
-import com.solvd.university.model.faculty.Faculty;
+import com.solvd.university.faculty.Faculty;
 
 import java.util.ArrayList;
 

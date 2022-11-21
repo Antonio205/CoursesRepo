@@ -1,4 +1,4 @@
-package com.solvd.university.model.students;
+package com.solvd.university.students;
 
 public enum EducationType {
     PAID, BUDGET, CORRESPONDENCE

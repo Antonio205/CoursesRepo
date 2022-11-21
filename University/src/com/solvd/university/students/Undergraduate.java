@@ -1,8 +1,8 @@
-package com.solvd.university.model.students;
+package com.solvd.university.students;
 
-import com.solvd.university.model.faculty.Faculty;
+import com.solvd.university.faculty.Faculty;
 import com.solvd.university.exception.StudentException;
-import com.solvd.university.model.university.University;
+import com.solvd.university.university.University;
 
 public class Undergraduate extends Student{
 
