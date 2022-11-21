@@ -1,7 +1,5 @@
 package com.solvd.university.specialities;
 
-import com.solvd.university.sublect.Subject;
-
 import java.util.ArrayList;
 
 public class HumanitarianSpeciality extends Speciality{

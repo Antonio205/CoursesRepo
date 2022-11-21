@@ -1,7 +1,9 @@
 package com.solvd.university.university;
 
+import com.solvd.university.educators.Educator;
 import com.solvd.university.exception.StudentException;
 import com.solvd.university.faculty.Faculty;
+import com.solvd.university.students.Student;
 
 import java.util.ArrayList;
 
@@ -28,17 +30,34 @@ public class University {
         return false;
     }
 
-    public int getAverage() throws StudentException {
-        int sum = 0;
-        int t = 0;
+    public double getAverage() throws StudentException {
+        double sum = 0;
+        int num = 0;
         for (var i : faculties){
-            if (i.isSmbPassExam()) {
-                ++t;
-                sum += i.getAverage();
+            ArrayList<Student> students = i.getStudents();
+            for(var t : students){
+                if (t.getExamMarks() != null) {
+                    sum += t.getAverageMark();
+                    ++num;
+                }
             }
         }
 
-        return sum / t;
+        return sum / (double)num;
+    }
+
+    public double getAverageExperience(){
+        double sum = 0;
+        int num = 0;
+        for (var i : faculties){
+            ArrayList<Educator> educators = i.getEducators();
+            for(var t : educators){
+                sum += t.getExperience();
+                ++num;
+            }
+        }
+
+        return sum / (double)num;
     }
 
     public String getTitle() {

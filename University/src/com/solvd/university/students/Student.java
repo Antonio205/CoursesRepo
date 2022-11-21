@@ -16,7 +16,7 @@ public abstract class Student {
     private int cash;
     final private University university;
     final private Faculty faculty;
-    private ArrayList<Integer> examMarks;
+    private ArrayList<Double> examMarks;
 
     public Student(int idNumber, String name, int cardNumber, int studyYear, EducationType educationType,
                    University university, Faculty faculty) throws StudentException {
@@ -39,11 +39,11 @@ public abstract class Student {
             throw new StudentException("Ошибка! Недостаточно денег для сдачи экзамена");
         }
         cash -= getExamCost();
-        ArrayList<Integer> examMarks = new ArrayList<Integer>();
-        for(int i =0; i < faculty.getExams().size(); ++i){
+        ArrayList<Double> examMarks = new ArrayList<Double>();
+        for(int i = 0; i < faculty.getExams().size(); ++i){
             Random rand = new Random();
             int n = rand.nextInt(11);
-            examMarks.add(n);
+            examMarks.add((double)n);
         }
         this.examMarks = examMarks;
     }
@@ -134,18 +134,18 @@ public abstract class Student {
         return faculty;
     }
 
-    public int getAverageMark() {
+    public double getAverageMark() {
         if (examMarks == null){
             throw new NullPointerException("Ошибка! Студент не сдал экзамены");
         }
-        int sum = 0;
+        double sum = 0;
         for (var i : examMarks){
             sum += i;
         }
         return sum / examMarks.size();
     }
 
-    public ArrayList<Integer> getExamMarks() {
+    public ArrayList<Double> getExamMarks() {
         return examMarks;
     }
 

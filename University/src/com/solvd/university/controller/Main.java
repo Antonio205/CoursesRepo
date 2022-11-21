@@ -12,7 +12,7 @@ import com.solvd.university.specialities.TechnicalSpeciality;
 import com.solvd.university.students.Bachelor;
 import com.solvd.university.students.EducationType;
 import com.solvd.university.students.Graduate;
-import com.solvd.university.sublect.Subject;
+import com.solvd.university.specialities.Subject;
 import com.solvd.university.university.University;
 
 import java.util.ArrayList;
@@ -52,6 +52,7 @@ public class Main {
             bachelor.insertCash(90);
             System.out.println("Балaнс на данный момент: " + bachelor.getCash());
             bachelor.passExams();
+            bachelor.showMarks();
             System.out.println("Ваш средний балл - " + bachelor.getAverageMark());
             if (bachelor.getAverageMark() >= 4){
                     System.out.println("Вы успешно сдали экзамены");
@@ -65,6 +66,7 @@ public class Main {
                     EducationType.PAID, bsu, faculty2, "btr", 8);
             graduate.insertCash(150);
                 graduate.passExams();
+                graduate.showMarks();
                 System.out.println("Средняя оценка по факультету: " + faculty.getAverage());
                 System.out.println("Средняя оценка по университету: " + bsu.getAverage());
             bachelor.showSpeciality();

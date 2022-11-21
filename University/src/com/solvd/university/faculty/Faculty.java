@@ -40,11 +40,20 @@ public class Faculty {
         return false;
     }
 
-    public int getAverage() throws StudentException {
+    public double getAverageExperience(){
+        double sum = 0;
+        for(var i : educators){
+            sum += i.getExperience();
+        }
+
+        return sum / (double)educators.size();
+    }
+
+    public double getAverage() throws StudentException {
         if (!isSmbPassExam()){
             throw new StudentException("Никто из студентов не сдавал экзамены");
         }
-        int sum = 0;
+        double sum = 0;
         int t = 0;
         for (var i : students){
             if (i.getExamMarks()!= null) {
@@ -53,7 +62,7 @@ public class Faculty {
             }
         }
 
-        return sum / t;
+        return sum / (double)t;
     }
 
     public void addStudent(Student student){
