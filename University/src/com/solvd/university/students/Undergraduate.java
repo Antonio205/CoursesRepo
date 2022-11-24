@@ -7,7 +7,7 @@ import com.solvd.university.university.University;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Undergraduate extends Student{
+public class Undergraduate extends Student {
 
     private String dissertationTheme;
 
@@ -18,10 +18,14 @@ public class Undergraduate extends Student{
     }
 
     @Override
-    public void passExams() throws StudentException {
+    public double passExams(double practiceMark) throws StudentException {
         if (cash < getExamCost()){
             throw new StudentException("Ошибка! Недостаточно денег для сдачи экзамена");
         }
+        if (practiceMark <= 0 || practiceMark > 10){
+            throw new IllegalArgumentException("Балл за практику должен быть от одного до десяти");
+        }
+
         cash -= getExamCost();
         ArrayList<Double> examMarks = new ArrayList<Double>();
         for(int i = 0; i < faculty.getExams().size(); ++i){
@@ -30,9 +34,22 @@ public class Undergraduate extends Student{
             if(n != 10){
                 ++n;
             }
-            examMarks.add((double)n);
+            examMarks.add(((double)n + (double)practiceMark) / 2);
         }
-        this.examMarks = examMarks;
+
+        double sum = 0;
+        for (var i : examMarks){
+            sum += i;
+        }
+
+        double averageMark = passRetake(practiceMark, sum / examMarks.size());
+
+        if (averageMark == 0){
+            return 0;
+        }
+
+        this.averageMark = averageMark;
+        return this.averageMark;
     }
 
 

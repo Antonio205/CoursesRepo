@@ -6,8 +6,10 @@ import com.solvd.university.faculty.Faculty;
 import com.solvd.university.students.Student;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class University {
+
+public class University implements GetAverage {
     private String title;
     private int educationCost;
     private String rectorName;
@@ -36,7 +38,7 @@ public class University {
         for (var i : faculties){
             ArrayList<Student> students = i.getStudents();
             for(var t : students){
-                if (t.getExamMarks() != null) {
+                if (t.getAverageMark() != 0) {
                     sum += t.getAverageMark();
                     ++num;
                 }
@@ -92,5 +94,23 @@ public class University {
         this.faculties = faculties;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        University university = (University) o;
+        return Objects.equals(title, university.title) && educationCost == university.educationCost
+                && Objects.equals(rectorName, university.rectorName) && Objects.equals(faculties, university.faculties);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, educationCost, rectorName, faculties);
+    }
+
+    @Override
+    public String toString() {
+        return "Университет " + getTitle() + ", имя ректора " + getRectorName() +
+                ", стоимость обучения " + getEducationCost();
+    }
 }

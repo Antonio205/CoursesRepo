@@ -5,6 +5,7 @@ import com.solvd.university.exception.StudentException;
 import com.solvd.university.university.University;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class Student {
@@ -16,7 +17,7 @@ public abstract class Student {
     protected int cash;
     final private University university;
     final protected Faculty faculty;
-    protected ArrayList<Double> examMarks;
+    protected double averageMark;
 
     public Student(int idNumber, String name, int cardNumber, int studyYear, EducationType educationType,
                    University university, Faculty faculty) throws StudentException {
@@ -34,32 +35,27 @@ public abstract class Student {
         faculty.addStudent(this);
     }
 
-    public void passExams() throws StudentException {
-        if (cash < getExamCost()){
-            throw new StudentException("Ошибка! Недостаточно денег для сдачи экзамена");
+    protected double passRetake(double practiceMark, double averageMark) throws StudentException{
+        if (averageMark >= 4){
+            return averageMark;
         }
-        cash -= getExamCost();
-        ArrayList<Double> examMarks = new ArrayList<Double>();
-        for(int i = 0; i < faculty.getExams().size(); ++i){
-            Random rand = new Random();
-            int n = rand.nextInt(11);
-            examMarks.add((double)n);
+        else if (getExamCost() - getEducationCost() > cash){
+            if (averageMark != 0) {
+                System.out.println("Вы сдали экзамен на " + averageMark + " и это последняя пересдача на которую хватает денег со счета...");
+            }
+            return 0;
         }
-        this.examMarks = examMarks;
+        else {
+            System.out.println("Вы сдали экзамен на " + averageMark + " и улетели на пересдачу...");
+            double av = passExams(practiceMark);
+            return passRetake(practiceMark, av);
+        }
     }
+
+    abstract double passExams(double practiceMark) throws  StudentException, IllegalArgumentException;
 
     public void showSpeciality(){
         faculty.showSpeciality();
-    }
-
-    public void showMarks() {
-        if (examMarks == null){
-            throw new NullPointerException("Ошибка! Студент не сдал экзаменов");
-        }
-        for(var i : examMarks){
-            System.out.print(i +  " ");
-        }
-        System.out.println();
     }
 
     public int getExamCost(){
@@ -70,16 +66,23 @@ public abstract class Student {
             examCost += i.getCost();
         }
 
-        if (this.educationType != EducationType.BUDGET)
-        {
-            examCost += university.getEducationCost();
-        }
+        examCost += getEducationCost();
 
         return examCost;
     }
 
-    public void insertCash(int money){
+    private int getEducationCost(){
+        if (this.educationType != EducationType.BUDGET){
+            return university.getEducationCost();
+        }
+        else {
+            return 0;
+        }
+    }
+
+    public boolean insertCash(int money){
         cash += money;
+        return true;
     }
 
     public EducationType getEducationType() {
@@ -135,18 +138,31 @@ public abstract class Student {
     }
 
     public double getAverageMark() {
-        if (examMarks == null){
+        if (averageMark == 0){
             throw new NullPointerException("Ошибка! Студент не сдал экзамены");
         }
-        double sum = 0;
-        for (var i : examMarks){
-            sum += i;
-        }
-        return sum / examMarks.size();
+        return averageMark;
     }
 
-    public ArrayList<Double> getExamMarks() {
-        return examMarks;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return idNumber == student.idNumber && Objects.equals(name, student.name) && cardNumber == student.cardNumber
+                && studyYear == student.studyYear && Objects.equals(educationType, student.educationType)
+                && Objects.equals(university, student.university) && Objects.equals(faculty, student.faculty);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idNumber, name, cardNumber, studyYear, educationType
+        , university, faculty);
+    }
+
+    @Override
+    public String toString() {
+        return "Студент " + name + ", номер студенческого " + idNumber + ", номер курса " + studyYear
+                + ", университет " + university.getTitle() + ", факультет " + faculty.getTitle();
+    }
 }

@@ -16,12 +16,13 @@ import com.solvd.university.specialities.Subject;
 import com.solvd.university.university.University;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
         try{
-            Subject subject1 = new Subject("Math", 2);
-            Subject subject2 = new Subject("Geometry", 4);
+            Subject subject1 = new Subject("Математика", 2);
+            Subject subject2 = new Subject("Геометрия", 4);
             ArrayList<Subject> subjects = new ArrayList<>();
             subjects.add(subject1);
             subjects.add(subject2);
@@ -40,34 +41,66 @@ public class Main {
             ArrayList<Exam> exams = new ArrayList<>();
             exams.add(exam1);
             exams.add(exam2);
-            Faculty faculty = new Faculty("bfk", exams, technicalSpeciality, educators);
-            Faculty faculty2 = new Faculty("bfk", exams, humanitarianSpeciality, educators);
+            Faculty faculty = new Faculty("ФПМИ", exams, technicalSpeciality, educators);
+            Faculty faculty2 = new Faculty("Мехмат", exams, humanitarianSpeciality, educators);
             ArrayList<Faculty> faculties = new ArrayList<>();
             faculties.add(faculty);
             faculties.add(faculty2);
-            University bsu = new University("BSU", 45, "carol", faculties);
+            University bsu = new University("БГУ", 45, "Андрей Дмитриевич Король", faculties);
             Bachelor bachelor = new Bachelor(21, "anton", 45,
                     3, EducationType.BUDGET, bsu, faculty, "gre");
-            System.out.println("Стоимость экзамена: "  + bachelor.getExamCost());
-            bachelor.insertCash(90);
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Введите ваше имя:");
+            String name = scan.next();
+            bachelor.setName(name);
+
+            System.out.println("Введите номер курса на котором вы учитесь");
+            int courseNum = scan.nextInt();
+            while (courseNum <= 0 || courseNum > 5){
+                System.out.println("Вы ввели неверный номер курса введите еще раз");
+                courseNum = scan.nextInt();
+            }
+            bachelor.setStudyYear(courseNum);
+
+            System.out.println("Введите название университета на который хотите поступать:");
+            String unName = scan.next();
+            bsu.setTitle(unName);
+            System.out.println("Информация об университете в который вы поступили: ");
+            System.out.println(bsu.toString());
+            System.out.println("Введите название факультета на который хотите поступать:");
+            String facName = scan.next();
+            faculty.setTitle(facName);
+            System.out.println("Информация о факультете в который вы поступили: ");
+            System.out.println(faculty.toString());
+
+            System.out.println("Информация о вас: \n" + bachelor.toString());
+
+            System.out.println("Стоимость экзамена для вас составит: "  + bachelor.getExamCost());
+            System.out.println("Сколько денег вы хотите положить на счет");
+            int cashNum = scan.nextInt();
+
+            if (bachelor.insertCash(cashNum)){
+                System.out.println("На счет успешно зачислено " + cashNum);
+            }
             System.out.println("Балaнс на данный момент: " + bachelor.getCash());
-            bachelor.passExams();
-            bachelor.showMarks();
-            System.out.println("Ваш средний балл - " + bachelor.getAverageMark());
-            if (bachelor.getAverageMark() >= 4){
-                    System.out.println("Вы успешно сдали экзамены");
+            System.out.println("Вы сдаете экзамен");
+            double bachelorAverage;
+            while ((bachelorAverage = bachelor.passExams(2)) == 0){
+                System.out.println("Вы не сдали экзамен пополните счет:");
+                cashNum = scan.nextInt();
+                bachelor.insertCash(cashNum);
+
             }
-            else
-            {
-                    System.out.println("Вы завалили экзамены");
-            }
+
+            System.out.println("Вы успешно сдали экзамен! Ваш средний балл - " + bachelorAverage);
 
             Graduate graduate = new Graduate(12, "rge", 45, 2,
                     EducationType.PAID, bsu, faculty2, "btr", 8);
             graduate.insertCash(150);
-                graduate.passExams();
+            double graduateAverage = graduate.passExams(10);
                 System.out.println("Средняя оценка по факультету: " + faculty.getAverage());
                 System.out.println("Средняя оценка по университету: " + bsu.getAverage());
+                System.out.println("Информация о вашей специальности:");
             bachelor.showSpeciality();
         }
         catch (StudentException exp){

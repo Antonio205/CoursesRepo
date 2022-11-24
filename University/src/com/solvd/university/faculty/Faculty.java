@@ -1,5 +1,6 @@
 package com.solvd.university.faculty;
 
+import com.solvd.university.university.GetAverage;
 import com.solvd.university.educators.Educator;
 import com.solvd.university.exam.Exam;
 import com.solvd.university.exception.StudentException;
@@ -7,8 +8,9 @@ import com.solvd.university.specialities.Speciality;
 import com.solvd.university.students.Student;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class Faculty {
+public class Faculty implements GetAverage {
     private String title;
     private ArrayList<Exam> exams;
     private ArrayList<Student> students;
@@ -32,7 +34,7 @@ public class Faculty {
 
     public boolean isSmbPassExam(){
         for(var i : students){
-            if (i.getExamMarks() != null)
+            if (i.getAverageMark() != 0)
             {
                 return true;
             }
@@ -56,7 +58,7 @@ public class Faculty {
         double sum = 0;
         int t = 0;
         for (var i : students){
-            if (i.getExamMarks()!= null) {
+            if (i.getAverageMark() != 0) {
                 sum += i.getAverageMark();
                 t++;
             }
@@ -112,6 +114,26 @@ public class Faculty {
 
     public void setSpeciality(Speciality speciality) {
         this.speciality = speciality;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Faculty faculty = (Faculty) o;
+        return Objects.equals(title, faculty.title) && Objects.equals(exams, faculty.exams)
+                && Objects.equals(students, faculty.students) && Objects.equals(educators, faculty.educators)
+                && Objects.equals(speciality, faculty.speciality);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, exams, students, educators, speciality);
+    }
+
+    @Override
+    public String toString() {
+        return "Факультет " + getTitle() + ", специальность " + getSpeciality().getTitle();
     }
 
 }
