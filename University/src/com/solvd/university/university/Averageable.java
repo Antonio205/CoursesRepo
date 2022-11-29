@@ -3,7 +3,7 @@ package com.solvd.university.university;
 
 import com.solvd.university.exception.StudentException;
 
-public interface GetAverage {
+public interface Averageable {
 
     double getAverage() throws StudentException;
 

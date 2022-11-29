@@ -1,6 +1,6 @@
 package com.solvd.university.faculty;
 
-import com.solvd.university.university.GetAverage;
+import com.solvd.university.university.Averageable;
 import com.solvd.university.educators.Educator;
 import com.solvd.university.exam.Exam;
 import com.solvd.university.exception.StudentException;
@@ -10,7 +10,7 @@ import com.solvd.university.students.Student;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Faculty implements GetAverage {
+public class Faculty implements Averageable {
     private String title;
     private ArrayList<Exam> exams;
     private ArrayList<Student> students;

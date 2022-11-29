@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 
-public class University implements GetAverage {
+public class University implements Averageable {
     private String title;
     private int educationCost;
     private String rectorName;

@@ -52,11 +52,24 @@ public abstract class Student {
         }
     }
 
-    abstract double passExams(double practiceMark) throws  StudentException, IllegalArgumentException;
-
-    public void showSpeciality(){
-        faculty.showSpeciality();
+    protected double passRetake(int practiceMark, int averageMark) throws StudentException{
+        if (averageMark >= 4){
+            return averageMark;
+        }
+        else if (getExamCost() - getEducationCost() > cash){
+            if (averageMark != 0) {
+                System.out.println("Вы сдали экзамен на " + averageMark + " и это последняя пересдача на которую хватает денег со счета...");
+            }
+            return 0;
+        }
+        else {
+            System.out.println("Вы сдали экзамен на " + averageMark + " и улетели на пересдачу...");
+            double av = passExams(practiceMark);
+            return passRetake(practiceMark, av);
+        }
     }
+
+    abstract double passExams(double practiceMark) throws  StudentException, IllegalArgumentException;
 
     public int getExamCost(){
         int examCost = 0;
@@ -131,6 +144,10 @@ public abstract class Student {
 
     public University getUniversity() {
         return university;
+    }
+
+    public void showSpeciality(){
+        faculty.showSpeciality();
     }
 
     public Faculty getFaculty() {
