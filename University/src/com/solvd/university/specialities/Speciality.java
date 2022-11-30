@@ -2,7 +2,7 @@ package com.solvd.university.specialities;
 
 import java.util.ArrayList;
 
-public abstract class Speciality {
+public class Speciality {
     private final String title;
     private ArrayList<Subject> subjects;
 

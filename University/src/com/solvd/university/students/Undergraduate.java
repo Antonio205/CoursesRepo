@@ -12,6 +12,11 @@ public class Undergraduate extends Student {
     private String dissertationTheme;
 
     public Undergraduate (String name, int cardNumber, int studyYear,
+                          EducationType educationType, University university, Faculty faculty) throws StudentException {
+        super(name, cardNumber, studyYear, educationType, university, faculty);
+    }
+
+    public Undergraduate (String name, int cardNumber, int studyYear,
                           EducationType educationType, University university, Faculty faculty, String dissertationTheme) throws StudentException {
         super(name, cardNumber, studyYear, educationType, university, faculty);
         this.dissertationTheme = dissertationTheme;

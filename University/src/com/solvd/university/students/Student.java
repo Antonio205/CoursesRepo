@@ -83,7 +83,7 @@ public abstract class Student {
         }
     }
 
-    abstract double passExams(double practiceMark) throws  StudentException, IllegalArgumentException;
+    abstract public double passExams(double practiceMark) throws  StudentException, IllegalArgumentException;
 
     public int getExamCost(){
         int examCost = 0;

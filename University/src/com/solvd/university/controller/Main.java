@@ -7,11 +7,8 @@ import com.solvd.university.educators.LaboratoryAssistant;
 import com.solvd.university.exam.Exam;
 import com.solvd.university.exception.StudentException;
 import com.solvd.university.faculty.Faculty;
-import com.solvd.university.specialities.HumanitarianSpeciality;
-import com.solvd.university.specialities.TechnicalSpeciality;
-import com.solvd.university.students.Bachelor;
+import com.solvd.university.specialities.Speciality;
 import com.solvd.university.students.EducationType;
-import com.solvd.university.students.Graduate;
 import com.solvd.university.specialities.Subject;
 import com.solvd.university.students.Student;
 import com.solvd.university.university.University;
@@ -27,12 +24,24 @@ public class Main {
             ArrayList<Subject> subjects = new ArrayList<>();
             subjects.add(subject1);
             subjects.add(subject2);
-            TechnicalSpeciality technicalSpeciality = new TechnicalSpeciality("MathLearning", subjects, 12);
-            HumanitarianSpeciality humanitarianSpeciality = new HumanitarianSpeciality("some language",
-                    subjects,12, "bebra");
-            DepartmentHead e1 = new DepartmentHead("frgr", 12, 35, "rfr");
-            Assistant e2 = new Assistant("regr", 5, 24, "Oleg");
-            LaboratoryAssistant e3 = new LaboratoryAssistant("ju,i", 3, 14, 202);
+            Speciality technicalSpeciality = new Speciality("MathLearning", subjects);
+            Speciality humanitarianSpeciality = new Speciality("some language", subjects);
+
+            EducatorBuilder educatorBuilder = new EducatorBuilder("Boris");
+            educatorBuilder.setExperience(45);
+            educatorBuilder.setSalary(56);
+            Assistant e1 = educatorBuilder.createAssistant();
+
+            EducatorBuilder educatorBuilder2 = new EducatorBuilder("John");
+            educatorBuilder2.setExperience(100);
+            educatorBuilder2.setSalary(120);
+            DepartmentHead e2 = educatorBuilder2.createDepartmentHead();
+
+            EducatorBuilder educatorBuilder3 = new EducatorBuilder("Matt");
+            educatorBuilder3.setExperience(34);
+            educatorBuilder3.setSalary(12);
+            LaboratoryAssistant e3 = educatorBuilder3.createLaboratoryAssistant();
+
             ArrayList<Educator> educators = new ArrayList<>();
             educators.add(e1);
             educators.add(e2);
@@ -48,10 +57,14 @@ public class Main {
             faculties.add(faculty);
             faculties.add(faculty2);
             University bsu = new University("БГУ", 45, "Андрей Дмитриевич Король", faculties);
-            Bachelor bachelor = new Bachelor( "anton", 45,
-                    3, EducationType.BUDGET, bsu, faculty, "gre");
-            Bachelor bachelor2 = new Bachelor( "anton", 45,
-                3, EducationType.BUDGET, bsu, faculty, "gre");
+            StudentFactory studentFactory = new StudentFactory();
+
+            Student bachelor = studentFactory.getStudent(StudentTypes.BACHELOR, "anton", 45,
+                    3, EducationType.BUDGET, bsu, faculty);
+
+
+            Student bachelor2 = studentFactory.getStudent(StudentTypes.BACHELOR, "anton", 45,
+                    3, EducationType.BUDGET, bsu, faculty);
 
             Scanner scan = new Scanner(System.in);
             System.out.println("Введите ваше имя:");
@@ -98,8 +111,8 @@ public class Main {
 
             System.out.println("Вы успешно сдали экзамен! Ваш средний балл - " + bachelorAverage);
 
-            Graduate graduate = new Graduate("rge", 45, 2,
-                    EducationType.PAID, bsu, faculty2, "btr", 8);
+            Student graduate = studentFactory.getStudent(StudentTypes.GRADUATE, "rge", 45, 2,
+                    EducationType.PAID, bsu, faculty2);
             graduate.insertCash(300);
             double graduateAverage = graduate.passExams(10);
                System.out.println("Средняя оценка по факультету: " + faculty.getAverage());
