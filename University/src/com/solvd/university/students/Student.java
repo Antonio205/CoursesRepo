@@ -171,9 +171,6 @@ public abstract class Student {
     }
 
     public double getAverageMark() {
-        if (averageMark == 0){
-            throw new NullPointerException("Ошибка! Студент не сдал экзамены");
-        }
         return averageMark;
     }
 

@@ -21,7 +21,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws StudentException {
-        //try{
+        try{
             Subject subject1 = new Subject("Математика", 2);
             Subject subject2 = new Subject("Геометрия", 4);
             ArrayList<Subject> subjects = new ArrayList<>();
@@ -52,19 +52,10 @@ public class Main {
                     3, EducationType.BUDGET, bsu, faculty, "gre");
             Bachelor bachelor2 = new Bachelor( "anton", 45,
                 3, EducationType.BUDGET, bsu, faculty, "gre");
-            Graduate graduate = new Graduate("rge", 45, 2,
-                    EducationType.PAID, bsu, faculty2, "btr", 8);
-            System.out.println(bachelor.getIdNumber());
-            System.out.println(bachelor2.getIdNumber());
-            System.out.println(graduate.getIdNumber());
-            Student.incrementCount(12);
-            System.out.println(Student.getCount());
-            System.out.println(bachelor.getEducationType().toString());
-            return;
 
-            /*Scanner scan = new Scanner(System.in);
+            Scanner scan = new Scanner(System.in);
             System.out.println("Введите ваше имя:");
-            String name = scan.next();
+            String name = scan.nextLine();
             bachelor.setName(name);
 
             System.out.println("Введите номер курса на котором вы учитесь");
@@ -109,18 +100,22 @@ public class Main {
 
             Graduate graduate = new Graduate("rge", 45, 2,
                     EducationType.PAID, bsu, faculty2, "btr", 8);
-            graduate.insertCash(150);
+            graduate.insertCash(300);
             double graduateAverage = graduate.passExams(10);
-                System.out.println("Средняя оценка по факультету: " + faculty.getAverage());
+               System.out.println("Средняя оценка по факультету: " + faculty.getAverage());
                 System.out.println("Средняя оценка по университету: " + bsu.getAverage());
                 System.out.println("Информация о вашей специальности:");
             bachelor.showSpeciality();
-        }
+            System.out.println("Средний стаж ваших преподавателей: " + bsu.getAverageExperience());
+
+            System.out.println(bachelor.getEducationType().toString());
+
+    }
         catch (StudentException exp){
             System.out.println(exp.getMessage());
         }
         catch (NullPointerException exp){
             System.out.println(exp.getMessage());
-        }*/
+        }
     }
 }
