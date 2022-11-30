@@ -4,9 +4,8 @@ import com.solvd.university.faculty.Faculty;
 import com.solvd.university.exception.StudentException;
 import com.solvd.university.university.University;
 
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
+
 
 public abstract class Student {
     protected int idNumber;
