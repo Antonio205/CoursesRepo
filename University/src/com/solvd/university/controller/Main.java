@@ -13,14 +13,15 @@ import com.solvd.university.students.Bachelor;
 import com.solvd.university.students.EducationType;
 import com.solvd.university.students.Graduate;
 import com.solvd.university.specialities.Subject;
+import com.solvd.university.students.Student;
 import com.solvd.university.university.University;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
-        try{
+    public static void main(String[] args) throws StudentException {
+        //try{
             Subject subject1 = new Subject("Математика", 2);
             Subject subject2 = new Subject("Геометрия", 4);
             ArrayList<Subject> subjects = new ArrayList<>();
@@ -47,9 +48,21 @@ public class Main {
             faculties.add(faculty);
             faculties.add(faculty2);
             University bsu = new University("БГУ", 45, "Андрей Дмитриевич Король", faculties);
-            Bachelor bachelor = new Bachelor(21, "anton", 45,
+            Bachelor bachelor = new Bachelor( "anton", 45,
                     3, EducationType.BUDGET, bsu, faculty, "gre");
-            Scanner scan = new Scanner(System.in);
+            Bachelor bachelor2 = new Bachelor( "anton", 45,
+                3, EducationType.BUDGET, bsu, faculty, "gre");
+            Graduate graduate = new Graduate("rge", 45, 2,
+                    EducationType.PAID, bsu, faculty2, "btr", 8);
+            System.out.println(bachelor.getIdNumber());
+            System.out.println(bachelor2.getIdNumber());
+            System.out.println(graduate.getIdNumber());
+            Student.incrementCount(12);
+            System.out.println(Student.getCount());
+            System.out.println(bachelor.getEducationType().toString());
+            return;
+
+            /*Scanner scan = new Scanner(System.in);
             System.out.println("Введите ваше имя:");
             String name = scan.next();
             bachelor.setName(name);
@@ -94,7 +107,7 @@ public class Main {
 
             System.out.println("Вы успешно сдали экзамен! Ваш средний балл - " + bachelorAverage);
 
-            Graduate graduate = new Graduate(12, "rge", 45, 2,
+            Graduate graduate = new Graduate("rge", 45, 2,
                     EducationType.PAID, bsu, faculty2, "btr", 8);
             graduate.insertCash(150);
             double graduateAverage = graduate.passExams(10);
@@ -108,6 +121,6 @@ public class Main {
         }
         catch (NullPointerException exp){
             System.out.println(exp.getMessage());
-        }
+        }*/
     }
 }

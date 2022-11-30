@@ -1,6 +1,6 @@
 package com.solvd.university.exam;
 
-public class Exam {
+public final class Exam {
 
     private String title;
     private int cost;

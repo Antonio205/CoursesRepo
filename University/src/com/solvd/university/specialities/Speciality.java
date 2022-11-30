@@ -3,7 +3,7 @@ package com.solvd.university.specialities;
 import java.util.ArrayList;
 
 public abstract class Speciality {
-    private String title;
+    private final String title;
     private ArrayList<Subject> subjects;
 
     public Speciality(String title, ArrayList<Subject> subjects) {
@@ -21,10 +21,6 @@ public abstract class Speciality {
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public ArrayList<Subject> getSubjects() {

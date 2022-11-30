@@ -9,7 +9,8 @@ import java.util.Objects;
 import java.util.Random;
 
 public abstract class Student {
-    private int idNumber;
+    protected int idNumber;
+    protected static int count;
     private String name;
     private int cardNumber;
     private int studyYear;
@@ -18,10 +19,14 @@ public abstract class Student {
     final private University university;
     final protected Faculty faculty;
     protected double averageMark;
+    static {
+        count = 0;
+    }
 
-    public Student(int idNumber, String name, int cardNumber, int studyYear, EducationType educationType,
+    public Student(String name, int cardNumber, int studyYear, EducationType educationType,
                    University university, Faculty faculty) throws StudentException {
-        this.idNumber = idNumber;
+        count++;
+        this.idNumber = count;
         this.name = name;
         this.cardNumber = cardNumber;
         this.studyYear = studyYear;
@@ -35,7 +40,7 @@ public abstract class Student {
         faculty.addStudent(this);
     }
 
-    protected double passRetake(double practiceMark, double averageMark) throws StudentException{
+    protected final double passRetake(double practiceMark, double averageMark) throws StudentException{
         if (averageMark >= 4){
             return averageMark;
         }
@@ -52,7 +57,7 @@ public abstract class Student {
         }
     }
 
-    protected double passRetake(int practiceMark, int averageMark) throws StudentException{
+    protected final double passRetake(int practiceMark, int averageMark) throws StudentException{
         if (averageMark >= 4){
             return averageMark;
         }
@@ -66,6 +71,16 @@ public abstract class Student {
             System.out.println("Вы сдали экзамен на " + averageMark + " и улетели на пересдачу...");
             double av = passExams(practiceMark);
             return passRetake(practiceMark, av);
+        }
+    }
+
+    public static boolean incrementCount(int newCount){
+        if (newCount < 0){
+            return false;
+        }
+        else {
+            count += newCount;
+            return true;
         }
     }
 
@@ -93,7 +108,7 @@ public abstract class Student {
         }
     }
 
-    public boolean insertCash(int money){
+    public final boolean insertCash(int money){
         cash += money;
         return true;
     }
@@ -116,10 +131,6 @@ public abstract class Student {
 
     public int getIdNumber() {
         return idNumber;
-    }
-
-    public void setIdNumber(int idNumber) {
-        this.idNumber = idNumber;
     }
 
     public String getName() {
@@ -152,6 +163,11 @@ public abstract class Student {
 
     public Faculty getFaculty() {
         return faculty;
+    }
+
+
+    public static int getCount() {
+        return count;
     }
 
     public double getAverageMark() {

@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Graduate extends Student {
+
     private String candidateWorkTheme;
     private int workHours;
 
-    public Graduate(int idNumber, String name, int cardNumber, int studyYear,
+    public Graduate(String name, int cardNumber, int studyYear,
                     EducationType educationType, University university, Faculty faculty, String candidateWorkTheme, int workHours) throws StudentException {
-        super(idNumber, name, cardNumber, studyYear, educationType, university, faculty);
+        super(name, cardNumber, studyYear, educationType, university, faculty);
         this.candidateWorkTheme = candidateWorkTheme;
         this.workHours = workHours;
     }

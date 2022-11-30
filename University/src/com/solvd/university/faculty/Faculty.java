@@ -10,7 +10,7 @@ import com.solvd.university.students.Student;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Faculty implements Averageable {
+public final class Faculty implements Averageable {
     private String title;
     private ArrayList<Exam> exams;
     private ArrayList<Student> students;
