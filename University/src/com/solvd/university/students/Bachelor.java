@@ -11,6 +11,12 @@ public class Bachelor extends Student {
 
     private String graduateTheme;
 
+
+    public Bachelor(String name, int cardNumber, int studyYear, EducationType educationType,
+                    University university, Faculty faculty) throws StudentException {
+        super(name, cardNumber, studyYear, educationType, university, faculty);
+    }
+
     public Bachelor(String name, int cardNumber, int studyYear, EducationType educationType,
                     University university, Faculty faculty, String graduateTheme) throws StudentException {
         super(name, cardNumber, studyYear, educationType, university, faculty);

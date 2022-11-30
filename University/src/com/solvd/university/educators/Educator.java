@@ -1,9 +1,17 @@
 package com.solvd.university.educators;
 
+import com.solvd.university.controller.EducatorBuilder;
+
 public abstract class Educator {
     private String name;
     private int experience;
     private int salary;
+
+    public Educator(EducatorBuilder builder) {
+        this.name = builder.getName();
+        this.experience = builder.getExperience();
+        this.salary = builder.getSalary();
+    }
 
     public Educator(String name, int experience, int salary) {
         this.name = name;

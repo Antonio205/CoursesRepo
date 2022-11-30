@@ -13,6 +13,11 @@ public class Graduate extends Student {
     private int workHours;
 
     public Graduate(String name, int cardNumber, int studyYear,
+                    EducationType educationType, University university, Faculty faculty) throws StudentException {
+        super(name, cardNumber, studyYear, educationType, university, faculty);
+    }
+
+    public Graduate(String name, int cardNumber, int studyYear,
                     EducationType educationType, University university, Faculty faculty, String candidateWorkTheme, int workHours) throws StudentException {
         super(name, cardNumber, studyYear, educationType, university, faculty);
         this.candidateWorkTheme = candidateWorkTheme;
