@@ -1,5 +1,7 @@
 package com.solvd.university.students;
 
+import com.solvd.university.exception.PassExamException;
+import com.solvd.university.exception.WrongMarkException;
 import com.solvd.university.faculty.Faculty;
 import com.solvd.university.exception.StudentException;
 import com.solvd.university.university.University;
@@ -23,12 +25,12 @@ public class Undergraduate extends Student {
     }
 
     @Override
-    public double passExams(double practiceMark) throws StudentException {
+    public double passExams(double practiceMark) throws PassExamException, WrongMarkException {
         if (cash < getExamCost()){
-            throw new StudentException("Ошибка! Недостаточно денег для сдачи экзамена");
+            throw new PassExamException("Ошибка! Недостаточно денег для сдачи экзамена");
         }
         if (practiceMark <= 0 || practiceMark > 10){
-            throw new IllegalArgumentException("Балл за практику должен быть от одного до десяти");
+            throw new WrongMarkException("Балл за практику должен быть от одного до десяти");
         }
 
         cash -= getExamCost();

@@ -5,20 +5,26 @@ import com.solvd.university.educators.DepartmentHead;
 import com.solvd.university.educators.Educator;
 import com.solvd.university.educators.LaboratoryAssistant;
 import com.solvd.university.exam.Exam;
+import com.solvd.university.exception.GetAverageException;
+import com.solvd.university.exception.PassExamException;
 import com.solvd.university.exception.StudentException;
 import com.solvd.university.faculty.Faculty;
 import com.solvd.university.specialities.Speciality;
-import com.solvd.university.students.EducationType;
 import com.solvd.university.specialities.Subject;
+import com.solvd.university.students.EducationType;
 import com.solvd.university.students.Student;
 import com.solvd.university.university.University;
+import org.apache.log4j.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
+    private static final Logger logger = LogManager.getLogger( Main.class );
+
     public static void main(String[] args) throws StudentException {
-        try{
+            logger.trace("Приложение запущено");
             Subject subject1 = new Subject("Математика", 2);
             Subject subject2 = new Subject("Геометрия", 4);
             ArrayList<Subject> subjects = new ArrayList<>();
@@ -28,8 +34,8 @@ public class Main {
             Speciality humanitarianSpeciality = new Speciality("some language", subjects);
 
             EducatorBuilder educatorBuilder = new EducatorBuilder("Boris");
-            educatorBuilder.setExperience(45);
-            educatorBuilder.setSalary(56);
+            educatorBuilder = educatorBuilder.setExperience(45);
+            educatorBuilder = educatorBuilder.setSalary(56);
             Assistant e1 = educatorBuilder.createAssistant();
 
             EducatorBuilder educatorBuilder2 = new EducatorBuilder("John");
@@ -57,6 +63,7 @@ public class Main {
             faculties.add(faculty);
             faculties.add(faculty2);
             University bsu = new University("БГУ", 45, "Андрей Дмитриевич Король", faculties);
+
             StudentFactory studentFactory = new StudentFactory();
 
             Student bachelor = studentFactory.getStudent(StudentTypes.BACHELOR, "anton", 45,
@@ -66,69 +73,89 @@ public class Main {
             Student bachelor2 = studentFactory.getStudent(StudentTypes.BACHELOR, "anton", 45,
                     3, EducationType.BUDGET, bsu, faculty);
 
+
+            BasicConfigurator.configure();
             Scanner scan = new Scanner(System.in);
-            System.out.println("Введите ваше имя:");
+            logger.info("Введите ваше имя:");
             String name = scan.nextLine();
             bachelor.setName(name);
 
-            System.out.println("Введите номер курса на котором вы учитесь");
+            logger.info("Введите номер курса на котором вы учитесь");
             int courseNum = scan.nextInt();
             while (courseNum <= 0 || courseNum > 5){
-                System.out.println("Вы ввели неверный номер курса введите еще раз");
+                logger.info("Вы ввели неверный номер курса введите еще раз");
                 courseNum = scan.nextInt();
             }
             bachelor.setStudyYear(courseNum);
 
-            System.out.println("Введите название университета на который хотите поступать:");
+            logger.info("Введите название университета на который хотите поступать:");
             String unName = scan.next();
             bsu.setTitle(unName);
-            System.out.println("Информация об университете в который вы поступили: ");
-            System.out.println(bsu.toString());
-            System.out.println("Введите название факультета на который хотите поступать:");
+            logger.info("Информация об университете в который вы поступили: " + "\n" + bsu.toString()
+             + "\nВведите название факультета на который хотите поступать:");
+
             String facName = scan.next();
             faculty.setTitle(facName);
-            System.out.println("Информация о факультете в который вы поступили: ");
-            System.out.println(faculty.toString());
+            logger.info("Информация о факультете в который вы поступили: " + "\n" + faculty.toString() +
+                    "\nИнформация о вас: \n" + bachelor.toString());
 
-            System.out.println("Информация о вас: \n" + bachelor.toString());
-
-            System.out.println("Стоимость экзамена для вас составит: "  + bachelor.getExamCost());
-            System.out.println("Сколько денег вы хотите положить на счет");
+            logger.info("Стоимость экзамена для вас составит: "  + bachelor.getExamCost() + "\n" +
+                    "Сколько денег вы хотите положить на счет");
             int cashNum = scan.nextInt();
 
             if (bachelor.insertCash(cashNum)){
-                System.out.println("На счет успешно зачислено " + cashNum);
+                if (cashNum >= bachelor.getExamCost()) {
+                    logger.info("На счет успешно зачислено " + cashNum);
+                }
+                else{
+
+                    while (bachelor.getCash() < bachelor.getExamCost()){
+                        logger.info("Недостаточно денег для сдачи экзамена, положите еще");
+                        cashNum = scan.nextInt();
+                        bachelor.insertCash(cashNum);
+                    }
+                }
             }
-            System.out.println("Балaнс на данный момент: " + bachelor.getCash());
-            System.out.println("Вы сдаете экзамен");
-            double bachelorAverage;
-            while ((bachelorAverage = bachelor.passExams(2)) == 0){
-                System.out.println("Вы не сдали экзамен пополните счет:");
-                cashNum = scan.nextInt();
-                bachelor.insertCash(cashNum);
 
+            logger.info("Балaнс на данный момент: " + bachelor.getCash() + "\nВы сдаете экзамен");
+
+            double bachelorAverage = 0;
+            try {
+                while ((bachelorAverage = bachelor.passExams(2)) == 0) {
+                    logger.info("Вы не сдали экзамен пополните счет:");
+                    cashNum = scan.nextInt();
+                    bachelor.insertCash(cashNum);
+
+                }
+            }
+            catch (PassExamException exp){
+                logger.error(exp.getMessage());
             }
 
-            System.out.println("Вы успешно сдали экзамен! Ваш средний балл - " + bachelorAverage);
 
+            logger.info("Вы успешно сдали экзамен! Ваш средний балл - " + bachelorAverage);
             Student graduate = studentFactory.getStudent(StudentTypes.GRADUATE, "rge", 45, 2,
                     EducationType.PAID, bsu, faculty2);
             graduate.insertCash(300);
-            double graduateAverage = graduate.passExams(10);
-               System.out.println("Средняя оценка по факультету: " + faculty.getAverage());
-                System.out.println("Средняя оценка по университету: " + bsu.getAverage());
-                System.out.println("Информация о вашей специальности:");
-            bachelor.showSpeciality();
-            System.out.println("Средний стаж ваших преподавателей: " + bsu.getAverageExperience());
 
-            System.out.println(bachelor.getEducationType().toString());
 
-    }
-        catch (StudentException exp){
-            System.out.println(exp.getMessage());
-        }
-        catch (NullPointerException exp){
-            System.out.println(exp.getMessage());
-        }
+            double graduateAverage = 0;
+            try {
+                graduateAverage = graduate.passExams(10);
+                logger.info("Средняя оценка по факультету: " + faculty.getAverage() + "\n" +
+                        "Средняя оценка по университету: " + bsu.getAverage());
+            }
+            catch (PassExamException | GetAverageException exp){
+                logger.error(exp.getMessage());
+            }
+
+            logger.info("Информация о вашей специальности:");
+
+            logger.info("Средний стаж ваших преподавателей: " + bsu.getAverageExperience());
+
+            logger.info(bachelor.getEducationType().toString());
+
+            logger.trace("Exiting application.");
+
     }
 }

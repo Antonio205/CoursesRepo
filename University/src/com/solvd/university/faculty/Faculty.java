@@ -1,5 +1,6 @@
 package com.solvd.university.faculty;
 
+import com.solvd.university.exception.GetAverageException;
 import com.solvd.university.university.Averageable;
 import com.solvd.university.educators.Educator;
 import com.solvd.university.exam.Exam;
@@ -51,9 +52,9 @@ public final class Faculty implements Averageable {
         return sum / (double)educators.size();
     }
 
-    public double getAverage() throws StudentException {
+    public double getAverage() throws GetAverageException {
         if (!isSmbPassExam()){
-            throw new StudentException("Никто из студентов не сдавал экзамены");
+            throw new GetAverageException("Никто из студентов не сдавал экзамены");
         }
         double sum = 0;
         int t = 0;

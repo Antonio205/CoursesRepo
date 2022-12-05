@@ -1,7 +1,8 @@
 package com.solvd.university.university;
 
 import com.solvd.university.educators.Educator;
-import com.solvd.university.exception.StudentException;
+import com.solvd.university.exception.GetAverageException;
+import com.solvd.university.exception.UniversityException;
 import com.solvd.university.faculty.Faculty;
 import com.solvd.university.students.Student;
 
@@ -17,7 +18,11 @@ public final class University implements Averageable {
 
     public University(String title, int educationCost, String rectorName, ArrayList<Faculty> faculties) {
         this.title = title;
+        if (educationCost <= 0){
+            throw new UniversityException("Неправильно указана стоимость обучения");
+        }
         this.educationCost = educationCost;
+
         this.rectorName = rectorName;
         this.faculties = faculties;
     }
@@ -32,7 +37,7 @@ public final class University implements Averageable {
         return false;
     }
 
-    public double getAverage() throws StudentException {
+    public double getAverage() throws GetAverageException {
         double sum = 0;
         int num = 0;
         for (var i : faculties){
@@ -43,6 +48,10 @@ public final class University implements Averageable {
                     ++num;
                 }
             }
+        }
+
+        if (num == 0){
+            throw new GetAverageException("Никто из студентов университета не сдал экзаменов");
         }
 
         return sum / (double)num;

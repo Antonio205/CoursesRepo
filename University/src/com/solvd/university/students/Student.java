@@ -1,5 +1,7 @@
 package com.solvd.university.students;
 
+import com.solvd.university.exception.PassExamException;
+import com.solvd.university.exception.WrongMarkException;
 import com.solvd.university.faculty.Faculty;
 import com.solvd.university.exception.StudentException;
 import com.solvd.university.university.University;
@@ -39,7 +41,7 @@ public abstract class Student {
         faculty.addStudent(this);
     }
 
-    protected final double passRetake(double practiceMark, double averageMark) throws StudentException{
+    protected final double passRetake(double practiceMark, double averageMark) throws PassExamException, WrongMarkException {
         if (averageMark >= 4){
             return averageMark;
         }
@@ -56,7 +58,7 @@ public abstract class Student {
         }
     }
 
-    protected final double passRetake(int practiceMark, int averageMark) throws StudentException{
+    protected final double passRetake(int practiceMark, int averageMark) throws PassExamException, WrongMarkException {
         if (averageMark >= 4){
             return averageMark;
         }
@@ -83,7 +85,7 @@ public abstract class Student {
         }
     }
 
-    abstract public double passExams(double practiceMark) throws  StudentException, IllegalArgumentException;
+    abstract public double passExams(double practiceMark) throws WrongMarkException, PassExamException;
 
     public int getExamCost(){
         int examCost = 0;
