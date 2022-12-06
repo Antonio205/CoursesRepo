@@ -14,7 +14,8 @@ import com.solvd.university.specialities.Subject;
 import com.solvd.university.students.EducationType;
 import com.solvd.university.students.Student;
 import com.solvd.university.university.University;
-import org.apache.log4j.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -74,7 +75,7 @@ public class Main {
                     3, EducationType.BUDGET, bsu, faculty);
 
 
-            BasicConfigurator.configure();
+
             Scanner scan = new Scanner(System.in);
             logger.info("Введите ваше имя:");
             String name = scan.nextLine();
