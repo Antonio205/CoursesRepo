@@ -26,6 +26,4 @@ public final class Exam {
     public void setcCost(int cost) {
         this.cost = cost;
     }
-
-
 }

@@ -1,29 +1,33 @@
 package com.solvd.university.faculty;
 
-import com.solvd.university.exception.GetAverageException;
-import com.solvd.university.university.Averageable;
+import com.solvd.university.controller.LinkedList;
 import com.solvd.university.educators.Educator;
 import com.solvd.university.exam.Exam;
-import com.solvd.university.exception.StudentException;
+import com.solvd.university.exception.GetAverageException;
 import com.solvd.university.specialities.Speciality;
 import com.solvd.university.students.Student;
+import com.solvd.university.university.Averageable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public final class Faculty implements Averageable {
     private String title;
-    private ArrayList<Exam> exams;
-    private ArrayList<Student> students;
+    private HashMap<Integer, Exam> exams = new HashMap<>();
+    private LinkedList<Student> students;
     private ArrayList<Educator> educators;
     private Speciality speciality;
+    private int examNumber = 0;
 
 
     public Faculty(String title, ArrayList<Exam> exams,
                     Speciality speciality, ArrayList<Educator> educators) {
         this.title = title;
-        this.exams = exams;
-        this.students = new ArrayList<>();
+        this.setExams(exams);
+
+
+        this.students = new LinkedList<>();
         this.speciality = speciality;
         this.educators = educators;
     }
@@ -34,9 +38,11 @@ public final class Faculty implements Averageable {
     }
 
     public boolean isSmbPassExam(){
-        for(var i : students){
-            if (i.getAverageMark() != 0)
+
+        for(int i = 0; i < students.getSize(); ++i){
+            if (students.get(i).getAverageMark() != 0)
             {
+
                 return true;
             }
         }
@@ -58,9 +64,9 @@ public final class Faculty implements Averageable {
         }
         double sum = 0;
         int t = 0;
-        for (var i : students){
-            if (i.getAverageMark() != 0) {
-                sum += i.getAverageMark();
+        for (int i = 0; i < students.getSize(); ++i){
+            if (students.get(i).getAverageMark() != 0) {
+                sum += students.get(i).getAverageMark();
                 t++;
             }
         }
@@ -80,24 +86,23 @@ public final class Faculty implements Averageable {
         this.title = title;
     }
 
-    public ArrayList<Exam> getExams() {
+    public HashMap<Integer, Exam> getExams() {
         return exams;
     }
 
     public void setExams(ArrayList<Exam> exams) {
-        this.exams = exams;
+        for (int i = 0 ; i < exams.size(); ++i){
+            examNumber++;
+            this.exams.put(examNumber, exams.get(i));
+        }
     }
 
-    public ArrayList<Student> getStudents() {
+    public LinkedList<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(ArrayList<Student> students) {
+    public void setStudents(LinkedList<Student> students) {
         this.students = students;
-    }
-
-    public void acceptStudent(Student student) {
-        this.students.add(student);
     }
 
     public ArrayList<Educator> getEducators() {

@@ -90,9 +90,9 @@ public abstract class Student {
     public int getExamCost(){
         int examCost = 0;
 
-        for (var i : faculty.getExams())
+        for (int i = 1; i <= faculty.getExams().size(); ++i)
         {
-            examCost += i.getCost();
+            examCost += faculty.getExams().get(i).getCost();
         }
 
         examCost += getEducationCost();

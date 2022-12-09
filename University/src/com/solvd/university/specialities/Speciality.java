@@ -1,19 +1,19 @@
 package com.solvd.university.specialities;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Speciality {
     private final String title;
-    private ArrayList<Subject> subjects;
+    private HashSet<Subject> subjects;
 
-    public Speciality(String title, ArrayList<Subject> subjects) {
+    public Speciality(String title, HashSet<Subject> subjects) {
         this.title = title;
         this.subjects = subjects;
     }
 
     public void showSubjects(){
         System.out.println("Ваши предметы:");
-        for(var i : this.getSubjects()){
+        for(var i : this.getSubjects()) {
             System.out.print(i.getTitle() + " ");
         }
         System.out.println();
@@ -23,11 +23,11 @@ public class Speciality {
         return title;
     }
 
-    public ArrayList<Subject> getSubjects() {
+    public HashSet<Subject> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(ArrayList<Subject> subjects) {
+    public void setSubjects(HashSet<Subject> subjects) {
         this.subjects = subjects;
     }
 }
